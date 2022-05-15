@@ -46,6 +46,7 @@ public class UserController {
 			
 			//update user id paiment as int with 10 digits (il suffit de l'enregistrer une autre fois pour le mettre a jour)
 			user.setIdPaiement(user.getIdUser()+Math.pow(10,9));
+			user.setConfCode(123);
 			userService.addUser(user);
 			msg = "user added succesfully !";
 
@@ -131,10 +132,10 @@ public class UserController {
 	}
 	
     
-	 @PutMapping("/updateUser/{username}")
-	    public User updateUser(@PathVariable(value = "username") String username,  @RequestBody User userDetails) {
+	 @PutMapping("/updateUser/{id}")
+	    public User updateUser(@PathVariable(value = "id") long id,  @RequestBody User userDetails) {
 
-	        User user = userService.findByUsername(username);
+	        User user = userService.findById(id);
 	        user.setFirstName(userDetails.getFirstName());
 	        user.setLastName(userDetails.getLastName());
 	        user.setMail(userDetails.getMail());
